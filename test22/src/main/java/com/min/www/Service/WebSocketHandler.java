@@ -16,6 +16,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.min.www.dao.BoardDao;
 import com.min.www.dto.BoardReplyDto;
+import com.min.www.util.TimeUtil;
 
 @Service
 public class WebSocketHandler extends TextWebSocketHandler{
@@ -61,17 +62,30 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
+		 try {
+		System.out.println("###### handleTextMessage satrt######");
 		Map<String, Object> paramMap = new HashMap<>();
 		
 		List<BoardReplyDto> boardReplyDtos;
-		paramMap.put("id", message.getPayload()); // jsp에서 소켓으로 보낸 메세지를 받음 ( 지금은 닉네임받을 예정) 
-		boardReplyDtos = boardDao.getSocketReply(paramMap);  // 소켓에서 보낸 닉네임을 DB 넣어서 사용자가 쓴 게시물의 댓글들을 가져옴.
 		
-		int count = boardReplyDtos.size(); // 댓글 갯수 
+		paramMap.put("id", message.getPayload()); // jsp에서 소켓으로 보낸 메세지를 받음 ( 지금은 닉네임받을 예정) 
+		
+		boardReplyDtos = boardDao.getSocketReply(paramMap);  // 소켓에서 보낸 닉네임을 DB 넣어서 사용자가 쓴 게시물의 댓글들을 가져옴.
+		System.out.println(boardReplyDtos.get(0).getRegister_datetime());
+		
+		for(int i=0; i<boardReplyDtos.size(); i++) {
+			System.out.println(boardReplyDtos.get(i).getRegister_datetime());
+
+		}
+		
+		
+		int count = TimeUtil.timeComparison(paramMap, boardReplyDtos); // 로그아웃 한 시점보다 날짜가 더 최신인 댓글 갯수 
+		
+		
+
+		
 		
 	
-		
-		
 		
 		System.out.println("소켓에서 받은 메세지 :" +message.getPayload());
 		
@@ -81,6 +95,13 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		 * 
 		 *  테스트용 코드 
 		 */
+		
+		System.out.println("###### handleTextMessage end######");
+		 } catch (Exception e) {
+			// TODO: handle exception
+			 e.printStackTrace();
+		}
+		
 	}
 
 }

@@ -1,5 +1,6 @@
 <%@page import="com.min.www.dto.member.MemberDto"%>
 <%@page import="org.springframework.ui.Model"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,7 +8,48 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<%-- <security:authorize access="isAuthenticated()">
+	<security:authentication property="pri"/>
+</security:authorize> --%>
+<!--  웹소켓 메세지알림 -->
+<script type="text/javascript">
+var wsUri = "ws://localhost:53493/www/count";
 
+function send_meesage() {
+	websocket = new WebSocket(wsUri);
+	websocket.onopen = function(evt) {
+		onOpen(evt);	
+	};
+	
+	websocket.onmessage = function(evt) {
+		onMessage(evt);	
+	};
+	
+	websocket.onerror = function(evt) {
+		onError(evt);	
+	};
+}
+
+function onOpen(evt) {
+	websocket.send("대악인");
+	
+}
+
+function onMessage(evt) {
+	$('#count').append(evt.data);	
+}
+
+function onError(evt) {
+	
+}
+
+$(document).ready(function() {
+	send_meesage()
+});
+
+
+
+</script>
 
 </head>
 <body>
@@ -51,6 +93,7 @@
     %>
         <li><a href="<%=request.getContextPath()%>/member"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <li><a href="<%=request.getContextPath()%>/member/loginform"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><span class="glyphicon glyphicon-comment"><span id="count"> 개</span></span></li>
       	<%
     	} else {
         %>

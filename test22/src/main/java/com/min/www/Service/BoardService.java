@@ -32,6 +32,8 @@ public interface BoardService {
 	
 	List<BoardDto> searchedContentCntList(Map<String, Object> paramMap);
 	
+	List<BoardReplyDto> getBoardReplySocket(Map<String, Object> paramMap);
+	
 	
 
 }

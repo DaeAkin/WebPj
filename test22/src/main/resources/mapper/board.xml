@@ -168,7 +168,7 @@
 	</select>
 	
 	<!--  게시판 댓글 웹소켓  -->
-	<select id="selectSocketReply" parameterType="java.util.HashMap" resultType="com.min.www.dto.BoardDto">
+	<select id="selectSocketReply" parameterType="java.util.HashMap" resultType="com.min.www.dto.BoardReplyDto">
 	select
 	 * 
 	 from 

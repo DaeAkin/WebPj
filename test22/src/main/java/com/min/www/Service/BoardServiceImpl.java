@@ -88,6 +88,7 @@ public class BoardServiceImpl implements BoardService{
 			}
 		}
 		
+		System.out.println(" 날짜 뽑기 테스트용 " +newBoardReplyList.get(0).getRegister_datetime());
 		//정리한 list return
 		return newBoardReplyList;
 	}
@@ -170,6 +171,18 @@ public class BoardServiceImpl implements BoardService{
 		
 		return boardlist;
 		
+	}
+	/*
+	 * 소켓 테스트 중..
+	 * (non-Javadoc)
+	 * @see com.min.www.Service.BoardService#getBoardReplySocket(java.util.Map)
+	 */
+	@Override
+	public List<BoardReplyDto> getBoardReplySocket(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		
+		
+		return boardDao.getReplyList(paramMap);
 	}
 	
 	
