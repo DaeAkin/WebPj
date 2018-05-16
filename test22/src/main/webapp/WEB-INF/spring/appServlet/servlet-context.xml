@@ -120,7 +120,7 @@
 		@Pre* : 메서드 인자값에 접근할 수 있다.
 		@Post* : 메서드 반환값에 접근 할 수 있다.
 	 -->
-	<security:global-method-security pre-post-annotations="enabled"/>
+	
 
 
 

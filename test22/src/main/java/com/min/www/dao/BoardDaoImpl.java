@@ -135,5 +135,11 @@ public class BoardDaoImpl implements BoardDao{
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("selectSocketReply",paramMap);
 	}
+
+	@Override
+	public void insertAlert(Map<String, Object> paramMap) {
+		sqlSession.insert("insertAlert",paramMap);
+		
+	}
 	
 }

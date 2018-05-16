@@ -1,6 +1,15 @@
 package com.min.www.dto.member;
 
-public class MemberDto {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+@SuppressWarnings("serial")
+public class MemberDto implements UserDetails{
 	String Mnumber;
 	String id;
 	String nickname;
@@ -8,6 +17,8 @@ public class MemberDto {
 	String email;
 	String imageurl;
 	String ORIGINALIMAGEURL;
+	private List<String> roles;
+	
 	
 	
 	
@@ -26,6 +37,69 @@ public class MemberDto {
 		ORIGINALIMAGEURL = this.ORIGINALIMAGEURL;
 		
 	}
+	
+	/*
+		Beginning UserDetails Interface
+	 */
+	/* 사용자에게 부여 된 권한을 리턴.
+	 * (non-Javadoc)
+	 * @see org.springframework.security.core.userdetails.UserDetails#getAuthorities()
+	 */
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		ArrayList<SimpleGrantedAuthority> grants = new ArrayList<>();
+		for(String role : roles) {
+			grants.add(new SimpleGrantedAuthority(role));
+		}
+		return grants;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return id;
+	}
+/*
+ * 사용자 계정이 만료되었는지 여부를 나타
+ * (non-Javadoc)
+ * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonExpired()
+ */
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+/*
+ * 사용자가 잠겨 있는지 여부를나타냄.
+ * (non-Javadoc)
+ * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonLocked()
+ */
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+/*
+ * 사용자의 자격 증명(암호)가 만료되었는지 여부를 나타냄.
+ * (non-Javadoc)
+ * @see org.springframework.security.core.userdetails.UserDetails#isCredentialsNonExpired()
+ */
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+/*
+ * 사용자의 사용 가능 여부를 나타냄.
+ * (non-Javadoc)
+ * @see org.springframework.security.core.userdetails.UserDetails#isEnabled()
+ */
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
 	
 	
 	
@@ -85,6 +159,8 @@ public class MemberDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	
 	
 	
 	

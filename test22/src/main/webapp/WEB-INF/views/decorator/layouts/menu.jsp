@@ -36,7 +36,7 @@ function onOpen(evt) {
 }
 
 function onMessage(evt) {
-	$('#count').append(evt.data);	
+	$('#count').text(evt.data);	
 }
 
 function onError(evt) {
@@ -44,7 +44,11 @@ function onError(evt) {
 }
 
 $(document).ready(function() {
-	send_meesage()
+	
+setInterval(function() {
+		send_meesage();
+	}, 6000);
+	
 });
 
 
@@ -57,8 +61,6 @@ $(document).ready(function() {
 	String requestId = (String)request.getAttribute("requestId");
 	String id = (String)session.getAttribute("loginuser");
 	String nickname = (String)session.getAttribute("nickname");
-	
-
 	
 %>
 
@@ -93,7 +95,10 @@ $(document).ready(function() {
     %>
         <li><a href="<%=request.getContextPath()%>/member"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <li><a href="<%=request.getContextPath()%>/member/loginform"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><span class="glyphicon glyphicon-comment"><span id="count"> 개</span></span></li>
+        <li><span class="glyphicon glyphicon-comment"></span></li>
+        <li><span class="glyphicon glyphicon-log-in"></span>sd</li>
+        <li><a href="<%=request.getContextPath()%>/member/notification"><span class="glyphicon glyphicon-comment"></span>알림 :<span id="count"></span></a></li>
+        <li><span> sadasd</span> </li>
       	<%
     	} else {
         %>

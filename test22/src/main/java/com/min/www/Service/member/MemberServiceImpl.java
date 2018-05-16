@@ -1,6 +1,8 @@
 package com.min.www.Service.member;
 
 import java.util.HashMap;
+
+
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Resource
 	FileUtils fileutils;
+	
+
+	
 
 	@Override
 	public List<MemberDto> getMemberlist(Map<String, Object> paramMap) {
@@ -130,7 +135,8 @@ public class MemberServiceImpl implements MemberService{
 		
 		
 	}
-	
+
+
 	
 	
 	

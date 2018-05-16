@@ -88,7 +88,7 @@ public class BoardServiceImpl implements BoardService{
 			}
 		}
 		
-		System.out.println(" 날짜 뽑기 테스트용 " +newBoardReplyList.get(0).getRegister_datetime());
+//		System.out.println(" 날짜 뽑기 테스트용 " +newBoardReplyList.get(0).getRegister_datetime());
 		//정리한 list return
 		return newBoardReplyList;
 	}
@@ -183,6 +183,13 @@ public class BoardServiceImpl implements BoardService{
 		
 		
 		return boardDao.getReplyList(paramMap);
+	}
+
+	@Override
+	public void regAlert(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		
+		boardDao.insertAlert(paramMap);
 	}
 	
 	

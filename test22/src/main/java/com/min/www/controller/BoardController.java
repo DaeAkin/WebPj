@@ -352,6 +352,11 @@ public class BoardController {
 		//정보 입력
 		int result = boardService.regReply(paramMap);
 		
+		//방금 등록한 board_id랑 reply_id 가져와야함 .
+		// 알림 추가
+		
+		boardService.regAlert(paramMap);
+	
 		if(result>0) {
 			retVal.put("code", "OK");
 			retVal.put("reply_id", paramMap.get("reply_id"));

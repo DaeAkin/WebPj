@@ -71,7 +71,7 @@
 		where
 			id = #{id}
 	</select>
-	<insert id="insertBoardReply" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="reply_id">
+	<insert id="insertBoardReply" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="reply_id,board_id">
 	insert into freeboardreply (
 		board_id,
 		parent_id,
@@ -89,6 +89,21 @@
 
 	
 	 )
+	</insert>
+	<!--알림용 댓글  -->
+	<insert id="insertAlert" parameterType="java.util.HashMap">
+	INSERT 
+		INTO
+	freeboardreplyalter(
+		board_id,
+		reply_id
+	) VALUES(
+		#{board_id},
+		#{reply_id}
+	)
+	
+		
+	
 	</insert>
 	<select id="selectBoardReplyList" resultType="com.min.www.dto.BoardReplyDto" parameterType="java.util.HashMap">
 		select 

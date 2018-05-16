@@ -40,6 +40,8 @@ public interface BoardDao {
 	List<BoardDto> getSearchedContentCntList2(Map<String, Object> paramMap);
 	
 	List<BoardReplyDto> getSocketReply(Map<String, Object> paramMap);
+
+	void insertAlert(Map<String, Object> paramMap);
 	
 	
 	

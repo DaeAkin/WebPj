@@ -16,6 +16,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.min.www.dao.BoardDao;
 import com.min.www.dto.BoardReplyDto;
+import com.min.www.util.BoardReplyAlter;
 import com.min.www.util.TimeUtil;
 
 @Service
@@ -71,16 +72,24 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		paramMap.put("id", message.getPayload()); // jsp에서 소켓으로 보낸 메세지를 받음 ( 지금은 닉네임받을 예정) 
 		
 		boardReplyDtos = boardDao.getSocketReply(paramMap);  // 소켓에서 보낸 닉네임을 DB 넣어서 사용자가 쓴 게시물의 댓글들을 가져옴.
-		System.out.println(boardReplyDtos.get(0).getRegister_datetime());
-		
-		for(int i=0; i<boardReplyDtos.size(); i++) {
-			System.out.println(boardReplyDtos.get(i).getRegister_datetime());
-
-		}
 		
 		
-		int count = TimeUtil.timeComparison(paramMap, boardReplyDtos); // 로그아웃 한 시점보다 날짜가 더 최신인 댓글 갯수 
+//		System.out.println(boardReplyDtos.get(0).getRegister_datetime());
+//		
+//		for(int i=0; i<boardReplyDtos.size(); i++) {
+//			System.out.println(boardReplyDtos.get(i).getRegister_datetime());
+//
+//		}
 		
+		
+//		int count = TimeUtil.timeComparison(paramMap, boardReplyDtos); // 로그아웃 한 시점보다 날짜가 더 최신인 댓글 갯수 
+		
+		int count = BoardReplyAlter.getReplys(paramMap, boardReplyDtos); // 로그인한 유저가 쓴 게시글의 모든 댓글을 가져온다.
+		
+		
+		/*
+		 * 댓글 달때 freeboardreplyalter 에도 값 넣어 줘야한다 . 나중에 꼭 수정할 것 지금은 임의로 데이터를 넣었다. 
+		 */
 		
 
 		
