@@ -96,6 +96,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		
 	
 		
+		System.out.println("댓글의 갯수 ? " + count);
 		System.out.println("소켓에서 받은 메세지 :" +message.getPayload());
 		
 		session.sendMessage(new TextMessage(count+"")); // count +"" 문자열로 변

@@ -13,41 +13,87 @@
 </security:authorize> --%>
 <!--  웹소켓 메세지알림 -->
 <script type="text/javascript">
-var wsUri = "ws://localhost:53493/www/count";
 
-function send_meesage() {
-	websocket = new WebSocket(wsUri);
-	websocket.onopen = function(evt) {
-		onOpen(evt);	
-	};
-	
-	websocket.onmessage = function(evt) {
-		onMessage(evt);	
-	};
-	
-	websocket.onerror = function(evt) {
-		onError(evt);	
-	};
-}
-
-function onOpen(evt) {
-	websocket.send("대악인");
-	
-}
-
-function onMessage(evt) {
-	$('#count').text(evt.data);	
-}
-
-function onError(evt) {
-	
-}
 
 $(document).ready(function() {
+	/*
+	WebSocket 프로토콜을 사용하여 통신하기 위해서는 webSocket 객를 생성하는데,
 	
-setInterval(function() {
-		send_meesage();
-	}, 6000);
+	WebSocket 생성자는 하나의 필수 파라미터와 하나의 선택 파라미터를 받는다.
+	
+	
+	WebSocket webSocket(
+			
+			in DOMString url,
+			in optional DOMString protocls
+			)
+	
+	 url = WebSocket 서버가 응답할 URL
+	 
+	 protocols (선택) 
+		하나의 프로토콜 문자열, 또는 프로토콜 문자열의 배열,
+		이 문자열들은 서브 프로토콜을 지정하는데 사용되어, 하나의 서버가 여러 개의 WebSocket 서브 프로토콜을 구현할 수 있도록 해줌.
+		예를 들어, 하나의 서버가 처리하는 상호작용이 지정된 protocols에 따라 달라지도록 할 수 있다.
+		만약 프로토콜 문자열을 지정하지 않으면 빈 문자열을 넣은 것으로 간주됨.
+	 
+	 
+	*/
+	
+	var wsUri = "ws://localhost:53493/www/count";
+
+	function send_meesage() {
+		
+		websocket.onopen = function(evt) {
+			onOpen(evt);	
+		};
+		
+		websocket.onmessage = function(evt) {
+			onMessage(evt);	
+		};
+		
+		websocket.onerror = function(evt) {
+			onError(evt);	
+		};
+	}
+
+	function onOpen(evt) {
+		
+		/* 
+		send() 
+		
+		보내고 싶은 메세지를 지정하면 된다. 
+		
+		연결을 맺는 행위는 비동기 작업이고, 실패하기 쉬운 작업이기 때문에,
+		WebSocket 오브젝트를 생성하마자 send()로 데이터를 전송을 시도하는 것은 
+		성공하지 않을 가능성이 있다.
+		연결이 수립된 이후에만 데이터를 전송하도록 하기위해 onOpen 핸들러에 정의하고 안에서 작업한다. 
+		*/
+		websocket.send("대악인");
+		
+	}
+
+	function onMessage(evt) {
+		/*
+			서버로부터 데이터 수신하기
+			메세지가 수신되면 meesage 이벤트가 onmessage 함수로 전달되게 된다.
+			
+		
+		*/
+		$('#count').text(evt.data);	
+	}
+
+	function onError(evt) {
+		
+	}
+	
+	websocket = new WebSocket(wsUri);
+	
+	
+	
+	setInterval(function() {
+		websocket.send("대악인");
+		/* send_meesage(); */
+	}, 6000); 
 	
 });
 
